@@ -24,25 +24,25 @@ class CloseEvent(Event):
 class ErrorEvent(Event):
     """Error a el evento"""
     def handle(self, listener):
-        if hasattr(listener, "error"):
+        if hasattr(listener, "on_error"):
             listener.on_close(self.payload)
 
 class LoadEvent(Event):
     """Error a el evento"""
     def handle(self, listener):
-        if hasattr(listener, "load"):
+        if hasattr(listener, "on_load"):
             listener.on_close(self.payload)
 
 class KeyupEvent(Event):
     """Error a el evento"""
     def handle(self, listener):
-        if hasattr(listener, "keyUp"):
+        if hasattr(listener, "on_keyUp"):
             listener.on_close(self.payload)
 
 class KeyDownEvent(Event):
     """Error a el evento"""
     def handle(self, listener):
-        if hasattr(listener, "KeyDown"):
+        if hasattr(listener, "on_KeyDown"):
             listener.on_close(self.payload)
 
 
