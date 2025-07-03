@@ -1,8 +1,10 @@
 class Event:
+    """Creacion del evento"""
     def __init__(self, payload):
         self.payload = payload
 
     def handle(self, listener):
+        """manejador """
         pass
 
 
@@ -25,6 +27,24 @@ class ErrorEvent(Event):
         if hasattr(listener, "error"):
             listener.on_close(self.payload)
 
+class LoadEvent(Event):
+    """Error a el evento"""
+    def handle(self, listener):
+        if hasattr(listener, "load"):
+            listener.on_close(self.payload)
+
+class KeyupEvent(Event):
+    """Error a el evento"""
+    def handle(self, listener):
+        if hasattr(listener, "keyUp"):
+            listener.on_close(self.payload)
+
+class KeyDownEvent(Event):
+    """Error a el evento"""
+    def handle(self, listener):
+        if hasattr(listener, "KeyDown"):
+            listener.on_close(self.payload)
+
 
 class Dispatcher:
     def __init__(self):
@@ -45,11 +65,27 @@ class MyListener:
     def on_close(self, payload):
         print("Close recibido:", payload)
 
+    def on_error(self, payload):
+        print("Error recibido:", payload)
 
-# Código de prueba
+    def on_load(self, payload):
+        print("Load recibido:", payload)
+
+    def on_key_up(self, payload):
+        print("KeyUp recibido:", payload)
+
+    def on_key_down(self, payload):
+        print("KeyDown recibido:", payload)
+
+
+
 dispatcher = Dispatcher()
 listener = MyListener()
 dispatcher.register(listener)
 
 dispatcher.dispatch(ClickEvent("botón azul"))
 dispatcher.dispatch(CloseEvent("ventana principal"))
+dispatcher.dispatch(ErrorEvent("archivo no encontrado"))
+dispatcher.dispatch(LoadEvent("cargando perfil"))
+dispatcher.dispatch(KeyupEvent("tecla A"))
+dispatcher.dispatch(KeyDownEvent("tecla B"))
